@@ -556,7 +556,7 @@ Core data structures:
 task_by_name
 dependency_count
 dependants
-ready queue
+ordered ready set
 result
 original_index
 ```
@@ -567,26 +567,33 @@ Algorithm:
 2. Record the original request index of every task.
 3. Calculate the incoming dependency count for every task.
 4. Build the reverse adjacency map: for each task, which tasks depend on it.
-5. Initialize the ready queue with tasks whose dependency count is zero.
+5. Initialize the ordered ready set with tasks whose dependency count is zero.
 6. Repeatedly:
    - remove the next ready task
    - append it to the result
    - decrement dependency counts for its dependants
-   - when a dependant reaches zero, insert it into the ready queue according to deterministic ordering rules
+   - when a dependant reaches zero, insert it into the ordered ready set according to deterministic ordering rules
 7. If the number of produced tasks equals the number of input tasks, return the result.
 8. Otherwise return `cyclic_dependency`.
 
-Complexity target:
+Complexity:
 
 ```text
-Time:  O(V + E)
-Space: O(V + E)
+Graph construction:             O(V + E)
+Ordered ready-set operation:    O(log V)
+Overall sorter time:            approximately O(E + V log V)
+Space:                          O(V + E)
 ```
 
 where:
 
 - `V` is the number of tasks
 - `E` is the number of dependency edges
+
+The implementation uses `:gb_sets` keyed by original request index so the next ready
+task is selected deterministically. Each task enters and leaves the ordered set at
+most once. The resulting logarithmic factor is an intentional trade-off for explicit,
+deterministic tie-breaking rather than reliance on map iteration order.
 
 ---
 
