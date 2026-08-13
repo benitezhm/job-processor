@@ -23,6 +23,8 @@ defmodule JobProcessor.MixProject do
   defp deps do
     [
       {:bandit, "~> 1.0"},
+      {:credo, "~> 1.7", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.4", only: :dev, runtime: false},
       {:jason, "~> 1.4"},
       {:plug, "~> 1.0"}
     ]

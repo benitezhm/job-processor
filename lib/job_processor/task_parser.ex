@@ -104,15 +104,14 @@ defmodule JobProcessor.TaskParser do
   end
 
   defp find_unknown_dependency(tasks, task_names) do
-    Enum.find_value(tasks, fn task ->
-      Enum.find_value(task.requires, fn dependency ->
-        if MapSet.member?(task_names, dependency) do
-          nil
-        else
-          {task.name, dependency}
-        end
-      end)
-    end)
+    Enum.find_value(tasks, &unknown_dependency(&1, task_names))
+  end
+
+  defp unknown_dependency(task, task_names) do
+    case Enum.find(task.requires, &(not MapSet.member?(task_names, &1))) do
+      nil -> nil
+      dependency -> {task.name, dependency}
+    end
   end
 
   defp error(code, message), do: {:error, %Error{code: code, message: message}}

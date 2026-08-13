@@ -2,6 +2,20 @@
 
 **TODO: Add description**
 
+## Requirements
+
+Tested with Erlang/OTP 28.0.1 and Elixir 1.18.4 compiled for OTP 28. The exact asdf
+versions are pinned in `.tool-versions`.
+
+## Quality
+
+```sh
+mix format --check-formatted
+mix test
+mix credo --strict
+mix dialyzer
+```
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed

@@ -7,6 +7,7 @@ defmodule JobProcessorWeb.Router do
   alias JobProcessor.Error
   alias JobProcessor.TaskParser
   alias JobProcessor.TaskSorter
+  alias Plug.Conn.Utils
 
   @json_parser_options Plug.Parsers.init(
                          parsers: [:json],
@@ -52,13 +53,12 @@ defmodule JobProcessorWeb.Router do
     end
   end
 
-  # Full RFC-style quality weighting was considered but intentionally left out to keep the service proportionate to the assignment.
   # For this small challenge, client order intentionally replaces full q-value prioritization.
   defp find_representation(values) do
     values
-    |> Enum.flat_map(&Plug.Conn.Utils.list/1)
+    |> Enum.flat_map(&Utils.list/1)
     |> Enum.find_value(fn media_range ->
-      case Plug.Conn.Utils.media_type(media_range) do
+      case Utils.media_type(media_range) do
         {:ok, type, subtype, _params} -> representation(type, subtype)
         :error -> nil
       end
