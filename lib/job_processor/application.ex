@@ -7,8 +7,10 @@ defmodule JobProcessor.Application do
 
   @impl true
   def start(_type, _args) do
+    port = Application.get_env(:job_processor, :port, 4000)
+
     children = [
-      {Bandit, plug: JobProcessorWeb.Router, scheme: :http, port: 4000}
+      {Bandit, plug: JobProcessorWeb.Router, scheme: :http, port: port}
     ]
 
     opts = [strategy: :one_for_one, name: JobProcessor.Supervisor]

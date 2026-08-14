@@ -13,8 +13,8 @@ outside the scope of this challenge.
 ## Architecture
 
 The project is a small OTP application built with Plug, Bandit, and Jason. Bandit is
-supervised by `JobProcessor.Application` and serves `JobProcessorWeb.Router` on port
-4000.
+supervised by `JobProcessor.Application` and serves `JobProcessorWeb.Router`,
+defaulting to port 4000.
 
 ```text
 HTTP request
