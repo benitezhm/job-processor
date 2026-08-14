@@ -97,6 +97,12 @@ touch /tmp/file1
 cat /tmp/file1
 ```
 
+### Content negotiation
+
+Supported `Accept` media types are evaluated in the order provided by the client, and
+the first supported type is selected. Full `q`-value prioritization is intentionally
+not implemented as a deliberate scope decision for this small service.
+
 ## Tests
 
 ```sh
