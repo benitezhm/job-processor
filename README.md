@@ -113,6 +113,13 @@ mix dialyzer
 
 CI runs all four quality checks for every push and pull request.
 
+## Development workflow
+
+This solution was developed with Codex in an AI-assisted coding workflow. Architecture
+and behavior are captured in [design.md](design.md), with persistent repository-level
+agent guidance in [AGENTS.md](AGENTS.md); changes were reviewed and validated using the
+quality checks above.
+
 ## Design decisions and assumptions
 
 - Task names are unique identifiers; duplicate names are rejected.
