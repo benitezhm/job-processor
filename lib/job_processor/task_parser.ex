@@ -114,5 +114,6 @@ defmodule JobProcessor.TaskParser do
     end
   end
 
+  @spec error(Error.code(), String.t()) :: {:error, Error.t()}
   defp error(code, message), do: {:error, %Error{code: code, message: message}}
 end

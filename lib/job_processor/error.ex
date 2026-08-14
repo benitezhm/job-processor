@@ -6,8 +6,16 @@ defmodule JobProcessor.Error do
   @enforce_keys [:code, :message]
   defstruct [:code, :message]
 
+  @type code ::
+          :invalid_request
+          | :invalid_task
+          | :duplicate_task
+          | :duplicate_dependency
+          | :unknown_dependency
+          | :cyclic_dependency
+
   @type t :: %__MODULE__{
-          code: atom(),
+          code: code(),
           message: String.t()
         }
 end
