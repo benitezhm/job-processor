@@ -1,5 +1,7 @@
 # Job Processor
 
+[![CI](https://github.com/benitezhm/job-processor/actions/workflows/ci.yml/badge.svg)](https://github.com/benitezhm/job-processor/actions/workflows/ci.yml)
+
 An Elixir service that validates a collection of tasks, orders them according to
 their dependencies, and returns either ordered JSON or a Bash script. Commands are
 rendered but never executed.
@@ -109,21 +111,19 @@ Supported `Accept` media types are evaluated in the order provided by the client
 the first supported type is selected. Full `q`-value prioritization is intentionally
 not implemented as a deliberate scope decision for this small service.
 
-## Tests
-
-```sh
-mix test
-```
-
-## Formatting and static analysis
+## Quality checks
 
 ```sh
 mix format --check-formatted
+mix test --cover
 mix credo --strict
 mix dialyzer
 ```
 
-CI runs all four quality checks for every push and pull request.
+Test coverage is reported using Elixir's built-in coverage tooling in CI. The suite
+covers the core parsing, sorting, rendering, and HTTP contracts; coverage is reviewed
+as a diagnostic rather than enforced as a fixed percentage. CI runs all four quality
+checks for every push and pull request.
 
 ## Development workflow
 

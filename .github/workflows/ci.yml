@@ -21,6 +21,6 @@ jobs:
 
       - run: mix deps.get
       - run: mix format --check-formatted
-      - run: mix test
+      - run: mix test --cover
       - run: mix credo --strict
       - run: mix dialyzer
