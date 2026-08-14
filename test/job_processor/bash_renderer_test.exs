@@ -21,6 +21,12 @@ defmodule JobProcessor.BashRendererTest do
     assert BashRenderer.render([task(command)]) == "#!/usr/bin/env bash\n#{command}\n"
   end
 
+  test "preserves leading and trailing command whitespace" do
+    command = "  echo hello\t "
+
+    assert BashRenderer.render([task(command)]) == "#!/usr/bin/env bash\n#{command}\n"
+  end
+
   test "includes a trailing newline" do
     assert String.ends_with?(BashRenderer.render([task("echo hello")]), "\n")
   end
