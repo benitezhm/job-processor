@@ -209,12 +209,16 @@ invariant failure is a programming error rather than expected user input.
 ## Bash rendering
 
 `JobProcessor.BashRenderer` is a pure transformation over already ordered tasks.
-Commands are emitted verbatim in the supplied order after the shebang.
+Commands are emitted exactly as provided in the request, in the supplied order after
+the shebang. They are not parsed, normalized, escaped, rewritten, validated, or
+executed. Shell quoting can affect command semantics, so the service preserves the
+original command text rather than normalizing quote style.
 
-The renderer does not parse shell syntax, normalize quoting, escape content, validate
-commands, or execute them. If command execution were added to a real system, it would
-require a separate security design for isolation, timeouts, resource limits, and
-filesystem and network access.
+The challenge example uses different quote styles between its JSON request and Bash
+illustration. This implementation intentionally preserves the request command
+verbatim. If command execution were added to a real system, it would require a
+separate security design for isolation, timeouts, resource limits, and filesystem and
+network access.
 
 ## Assumptions and trade-offs
 

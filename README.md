@@ -97,6 +97,12 @@ touch /tmp/file1
 cat /tmp/file1
 ```
 
+Commands are emitted exactly as provided and are not parsed, normalized, escaped,
+rewritten, or executed. Shell quoting can change command semantics, so the service
+preserves the request text rather than normalizing quote style. The challenge example
+uses different quote styles in its JSON request and Bash illustration; this
+implementation intentionally preserves the request command verbatim.
+
 ### Content negotiation
 
 Supported `Accept` media types are evaluated in the order provided by the client, and
@@ -136,4 +142,3 @@ quality checks above.
 - Tasks that become executable at the same time preserve their original input order.
 - Successful JSON responses omit `requires` after the dependencies have been resolved.
 - JSON is the default response; Bash is selected with `Accept: text/plain`.
-- Shell commands are preserved verbatim, rendered, and never executed.
